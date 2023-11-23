@@ -40,7 +40,7 @@ public class StartupOperations
             user = newUser;
         }
 
-        var pass = DefaultAdminData.Password;
+        const string pass = DefaultAdminData.Password;
         var hash = new PasswordHasher<IdentityUser>().HashPassword(user, pass);
         user.PasswordHash = hash;
         await _userManager.UpdateAsync(user);

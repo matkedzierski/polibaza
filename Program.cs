@@ -17,6 +17,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<ColorService>();
 builder.Services.AddTransient<StartupOperations>();
+builder.Services.AddTransient<UserPreferencesService>();
 
 var app = builder.Build();
 
