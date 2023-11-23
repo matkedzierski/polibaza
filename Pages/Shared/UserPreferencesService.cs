@@ -60,7 +60,7 @@ public class UserPreferencesService
     
     public void StoreCachedPrefs(string key, UserPreferences? prefs)
     {
-        _cache.Set(key, prefs);
+        _cache.Set(key, prefs, TimeSpan.FromHours(1));
         _logger.LogDebug("Stored prefs: {prefs}", prefs);
     }
 
