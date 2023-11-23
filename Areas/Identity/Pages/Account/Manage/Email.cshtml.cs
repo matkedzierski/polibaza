@@ -114,10 +114,10 @@ namespace PoliBaza.Areas.Identity.Pages.Account.Manage
                     "/Account/ConfirmEmailChange",
                     pageHandler: null,
                     values: new { area = "Identity", userId, email = Input.NewEmail, code },
-                    protocol: Request.Scheme);
+                    protocol: Request.Scheme) ?? "/Index";
 
                 StatusMessage = "Przekierowuję do strony potwierdzenia.";
-                return RedirectToPage(callbackUrl);
+                return Redirect(callbackUrl);
             }
 
             StatusMessage = "Nowy email jest taki sam jak obecny!";

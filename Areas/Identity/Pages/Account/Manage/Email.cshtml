@@ -15,14 +15,14 @@
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-floating input-group">
-                <input asp-for="Email" class="form-control" disabled />
+                <input style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true);" asp-for="Email" class="form-control" disabled />
                 <div class="input-group-append">
-                    <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
+                    <span style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true);" class="h-100 input-group-text text-success font-weight-bold">✓</span>
                 </div>
                 <label asp-for="Email" class="form-label"></label>
             </div>
             <div class="form-floating">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" />
+                <input style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true);" asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" />
                 <label asp-for="Input.NewEmail" class="form-label"></label>
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>

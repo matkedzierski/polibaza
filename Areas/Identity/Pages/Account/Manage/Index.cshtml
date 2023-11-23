@@ -15,11 +15,11 @@
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
-                <input asp-for="Username" class="form-control" disabled />
+                <input style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true); opacity: 0.6; filter: grayscale(.8)"  asp-for="Username" class="form-control" disabled />
                 <label asp-for="Username" class="form-label"></label>
             </div>
             <div class="form-floating">
-                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <input style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true);" asp-for="Input.PhoneNumber" class="form-control" />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
