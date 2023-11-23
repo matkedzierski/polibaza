@@ -1,0 +1,24 @@
+﻿@page
+@using PoliBaza.Pages.Shared
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IndexModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject ColorService ColorService
+@{
+    ViewData["Title"] = "Strona Główna";
+}
+
+<div class="text-center">
+    <h1 class="">Witaj w PoliBazie</h1>
+    <p>Serwis został stworzony w celu wygodnego przechowywania informacji na temat domowej biblioteki. </p>
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <p>Aby móc przeglądać zawartość biblioteki musisz być zalogowany!</p>
+        <a class="btn btn-lg btn-primary" asp-area="Identity" asp-page="/Account/Login">Zaloguj się</a>
+    }
+    else
+    {
+        <p>Przejdź do widoku biblioteki, aby zapoznać się z jej zawartością!</p>
+        <a style="color: @await ColorService.GetUserColor(User, true); background-color: @await ColorService.GetUserColor(User);" class="btn btn-lg btn-primary" asp-page="/Library">Biblioteka</a>
+    }
+</div>
