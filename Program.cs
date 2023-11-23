@@ -15,9 +15,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+
 builder.Services.AddTransient<ColorService>();
 builder.Services.AddTransient<StartupOperations>();
 builder.Services.AddTransient<UserPreferencesService>();
+builder.Services.AddTransient<LibraryService>();
 
 var app = builder.Build();
 

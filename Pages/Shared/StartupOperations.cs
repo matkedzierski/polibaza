@@ -7,13 +7,16 @@ public class StartupOperations
     private readonly ILogger<StartupOperations> _logger;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly LibraryService _lib;
     public StartupOperations(RoleManager<IdentityRole> roleManager, 
         ILogger<StartupOperations> logger,
+        LibraryService libService,
         UserManager<IdentityUser> userManager)
     {
         _logger = logger;
         _roleManager = roleManager;
         _userManager = userManager;
+        _lib = libService;
     }
     
     public async Task CreateUser()
@@ -79,4 +82,10 @@ public class StartupOperations
             _logger.LogInformation("Role {roleName} already exists", roleName);
         }
     }
+
+    /*public async Task SeedData()
+    {
+        _db
+    }   */
+    
 }
