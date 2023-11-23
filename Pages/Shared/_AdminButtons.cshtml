@@ -1,0 +1,33 @@
+﻿@model IdentityUser
+
+@{
+    async Task<bool> IsAdmin()
+    {
+        return await UserManager.IsInRoleAsync(Model, RoleNames.ADMIN);
+    }
+
+    async Task<bool> IsCurrent()
+    {
+        return Model.Id == (await UserManager.GetUserAsync(User)).Id;
+    }
+    bool IsDefault()
+    {
+        return Model.Email == DefaultAdminData.UserName;
+    }
+}
+@inject UserManager<IdentityUser> UserManager
+
+@if(IsDefault())
+{
+    <span>Domyślny Administrator</span>
+} else if(await IsCurrent())
+{
+    <span>Obecny użytkownik</span>
+} else {
+    <form method="post" id="form-@Model.Id">
+        <input type="hidden" value="@Model.Id" name="userId"/>
+        @if (await IsAdmin()) { <input class="btn btn-warning" type="submit" value="Degraduj" asp-page-handler="Demote"/> }
+        else { <input class="btn btn-success" type="submit" value="Awansuj" asp-page-handler="Promote"/> }
+        <input class="btn btn-danger" type="submit" value="Usuń" asp-page-handler="Delete"/>
+    </form>   
+}

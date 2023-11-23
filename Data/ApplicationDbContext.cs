@@ -5,7 +5,7 @@ namespace PoliBaza.Data
 {
 	public class ApplicationDbContext : IdentityDbContext
 	{
-		public DbSet<UserPreferences>? UserPreferences { get; set; }
+		public DbSet<UserPreferences> UserPreferences { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)

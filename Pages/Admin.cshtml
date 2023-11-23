@@ -5,4 +5,21 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Tu będzie zarządzanie użytkownikami.</p>
+<partial name="_StatusMessage" for="StatusMessage" />
+<table>
+    <table class="table table-bordered table-responsive table-hover">  
+        <tr>  
+            <th>Użytkownik</th>  
+            <th>Akcje </th>  
+        </tr>  
+        @foreach (var d in Model.Users.ToList())  
+        {  
+            <tr>  
+                <td>@d.Email</td>  
+                <td>
+                    <partial name="Shared/_AdminButtons" for="@d" />
+                </td>
+            </tr>  
+        }  
+    </table>  
+</table>

@@ -162,7 +162,7 @@ namespace PoliBaza.Areas.Identity.Pages.Account.Manage
 
             if (!prefsChanged) return true;
             await _db.SaveChangesAsync();
-            _prefsService.StoreCachedPrefs(User, prefs);
+            _prefsService.StoreCachedPrefs(user.Id, prefs);
             return false;
         }
     }
