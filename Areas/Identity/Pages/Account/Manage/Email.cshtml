@@ -15,7 +15,7 @@
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-floating input-group">
-                <input style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true);" asp-for="Email" class="form-control" disabled />
+                <input style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true); opacity: 0.6; filter: grayscale(.8)" asp-for="Email" class="form-control" disabled />
                 <div class="input-group-append">
                     <span style="background-color: @await ColorService.GetUserBackground(User); color: @await ColorService.GetUserBackground(User, true);" class="h-100 input-group-text text-success font-weight-bold">✓</span>
                 </div>
