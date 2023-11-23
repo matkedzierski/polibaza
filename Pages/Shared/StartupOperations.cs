@@ -18,13 +18,13 @@ public class StartupOperations
     
     public async Task CreateUser()
     {
-        var name = "admin@polibaza.somee.com";
+        var name = DefaultAdminData.UserName;
+        
         var user = await _userManager.FindByNameAsync(name);
         if (user != null)
         {
             _logger.LogInformation("User {name} already exists", name);
             await AddUserToRole(user);
-            return;
         }
         else
         {
@@ -40,7 +40,8 @@ public class StartupOperations
             user = newUser;
         }
 
-        var hash = new PasswordHasher<IdentityUser>().HashPassword(user, "TestPass123!@#");
+        var pass = DefaultAdminData.Password;
+        var hash = new PasswordHasher<IdentityUser>().HashPassword(user, pass);
         user.PasswordHash = hash;
         await _userManager.UpdateAsync(user);
         _logger.LogInformation("Admin password reverted to default");
