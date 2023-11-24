@@ -7,7 +7,7 @@ namespace PoliBaza.Data
 	public class ApplicationDbContext : IdentityDbContext
 	{
 		public DbSet<UserPreferences> UserPreferences { get; set; }
-		public DbSet<LibraryItem> LibraryItems { get; set; }
+		public DbSet<LibraryItem?> LibraryItems { get; set; }
 		public DbSet<LibraryItem.Book> Books { get; set; }
 		public DbSet<LibraryItem.Magazine> Magazines { get; set; }
 		public DbSet<LibraryItem.Multimedia> Multimedia { get; set; }

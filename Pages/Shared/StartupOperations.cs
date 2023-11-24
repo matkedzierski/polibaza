@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using PoliBaza.Data;
 
 namespace PoliBaza.Pages.Shared;
 
@@ -8,7 +10,8 @@ public class StartupOperations
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<IdentityUser> _userManager;
     private readonly LibraryService _lib;
-    public StartupOperations(RoleManager<IdentityRole> roleManager, 
+
+    public StartupOperations(RoleManager<IdentityRole> roleManager,
         ILogger<StartupOperations> logger,
         LibraryService libService,
         UserManager<IdentityUser> userManager)
@@ -18,11 +21,11 @@ public class StartupOperations
         _userManager = userManager;
         _lib = libService;
     }
-    
+
     public async Task CreateUser()
     {
         var name = DefaultAdminData.UserName;
-        
+
         var user = await _userManager.FindByNameAsync(name);
         if (user != null)
         {
@@ -37,7 +40,7 @@ public class StartupOperations
                 EmailConfirmed = true,
                 PhoneNumber = "111222333"
             };
-        
+
             await _userManager.CreateAsync(newUser);
             _logger.LogInformation("User {name} created successfully", name);
             user = newUser;
@@ -48,7 +51,7 @@ public class StartupOperations
         user.PasswordHash = hash;
         await _userManager.UpdateAsync(user);
         _logger.LogInformation("Admin password reverted to default");
-        
+
         await AddUserToRole(user);
     }
 
@@ -59,6 +62,7 @@ public class StartupOperations
             _logger.LogInformation("User {name} is already in role {role}", user.Email, RoleNames.ADMIN);
             return;
         }
+
         await _userManager.AddToRoleAsync(user, RoleNames.ADMIN);
     }
 
@@ -83,9 +87,36 @@ public class StartupOperations
         }
     }
 
-    /*public async Task SeedData()
+    public async Task SeedData()
     {
-        _db
-    }   */
-    
+        if (!await _lib.GetAll().AnyAsync())
+        {
+            _logger.LogInformation("Generating new example data");
+            var items = new LibraryItem?[]
+            {
+                new()
+                {
+                    Id = new Guid(), Author = "Test Author 1", Title = "Test item", Publisher = "Test Publisher",
+                    Tags = new[] { "tag1", "tag2" }
+                },
+                new LibraryItem.Book
+                {
+                    Id = new Guid(), Author = "Test Author 2", Title = "Test book", Publisher = "Test Publisher",
+                    Tags = new[] { "tag1", "tag2" }
+                },
+                new LibraryItem.Magazine
+                {
+                    Id = new Guid(), Author = "Test Author 3", Title = "Test magazine", Publisher = "Test Publisher",
+                    Tags = new[] { "tag1", "tag2" }
+                },
+                new LibraryItem.Multimedia
+                {
+                    Id = new Guid(), Author = "Test Author 4", Title = "Test multimedia", Publisher = "Test Publisher",
+                    Tags = new[] { "tag1", "tag2" }
+                }
+            };
+
+            await _lib.AddAll(items);
+        }
+    }
 }

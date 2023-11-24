@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using PoliBaza.Data;
 
@@ -25,8 +23,25 @@ public class LibraryService
         _logger = logger;
     }
 
-    public IQueryable<LibraryItem> GetAll()
+    public IQueryable<LibraryItem?> GetAll()
     {
         return _db.LibraryItems;
+    }
+
+    public async Task AddAll(IEnumerable<LibraryItem?> items)
+    {
+        await _db.LibraryItems.AddRangeAsync(items);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task Add(LibraryItem? libraryItem)
+    {
+        await _db.LibraryItems.AddAsync(libraryItem);
+        await _db.SaveChangesAsync();
+    }
+
+    public async Task<LibraryItem?> Get(Guid id)
+    {
+        return (await _db.LibraryItems.FindAsync(id)) ?? null;
     }
 }

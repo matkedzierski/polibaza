@@ -1,26 +1,37 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .row form .btn {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
+.add-tag {
+    font-size: 1.2em;
+    line-height: 1.2em;
+    vertical-align: middle;
+}
+
+
 center {
-  display: none;
+    display: none;
+}
+
+body > div:nth-last-child(2) {
+    display: none !important;
 }

@@ -30,6 +30,8 @@ if (startup != null)
 {
     await startup.CreateRoles();
     await startup.CreateUser();
+    await startup.SeedData();
+    
 }
     
 

@@ -5,4 +5,24 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Tu będzie biblioteka zasobów.</p>
+<table>
+    <table class="table table-bordered table-responsive table-hover">  
+        <tr>  
+            <th>Tytuł</th>  
+            <th>Autor</th>  
+            <th>Typ</th>  
+            <th>Akcje </th>  
+        </tr>  
+        @foreach (var item in Model.Items)  
+        {  
+            <tr>  
+                <td>@item.Title</td>  
+                <td>@item.Author</td>  
+                <td>@item.ItemType </td>  
+                <td style="width: 20%;">
+                    <partial name="Shared/_LibItemButtons" for="@item" />
+                </td>
+            </tr>  
+        }  
+    </table>  
+</table>
