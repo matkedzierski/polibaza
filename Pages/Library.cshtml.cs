@@ -45,6 +45,12 @@ public class LibraryModel : PageModel
 	{
 		return RedirectToPage("/Library/ViewItem", new { id });
 	}
+
+	public IActionResult OnPostSearch(string search)
+	{
+		Items = _lib.GetAll().Where(it => !string.IsNullOrEmpty(it.Title) && it.Title.ToLower().Contains(search.ToLower()));
+		return Page();
+	}
 	public async Task<IActionResult> OnPostDelete(string? id)
 	{
 		if (!string.IsNullOrEmpty(id))

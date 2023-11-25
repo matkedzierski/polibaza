@@ -21,7 +21,7 @@ body {
     margin-top: 10px;
 }
 
-.form-control, #create-btn {
+.form-control, #create-btn, #search-btn {
     margin-bottom: 5px;
     margin-top: 0;
 }

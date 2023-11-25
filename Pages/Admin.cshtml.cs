@@ -6,7 +6,7 @@ using PoliBaza.Pages.Shared;
 
 namespace PoliBaza.Pages
 {
-    [Authorize]
+    [Authorize(Roles = RoleNames.ADMIN)]
     public class AdminModel : PageModel
     {
         private readonly ILogger<LibraryModel> _logger;

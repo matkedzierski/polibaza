@@ -23,18 +23,18 @@ public class LibraryService
         _logger = logger;
     }
 
-    public IQueryable<LibraryItem?> GetAll()
+    public IQueryable<LibraryItem> GetAll()
     {
         return _db.LibraryItems;
     }
 
-    public async Task AddAll(IEnumerable<LibraryItem?> items)
+    public async Task AddAll(IEnumerable<LibraryItem> items)
     {
         await _db.LibraryItems.AddRangeAsync(items);
         await _db.SaveChangesAsync();
     }
 
-    public async Task Add(LibraryItem? libraryItem)
+    public async Task Add(LibraryItem libraryItem)
     {
         await _db.LibraryItems.AddAsync(libraryItem);
         await _db.SaveChangesAsync();

@@ -7,7 +7,7 @@ using PoliBaza.Pages.Shared;
 
 namespace PoliBaza.Pages.Library
 {
-    [Authorize]
+    [Authorize(Roles = RoleNames.ADMIN)]
     public class EditMultimediaModel : PageModel
     {
         private readonly ILogger<LibraryModel> _logger;

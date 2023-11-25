@@ -6,7 +6,17 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4 offset-8">
+    <div class="col-md-4">
+        <form method="post" id="search-form">
+            Wyszukaj według tytułu:<br/>
+            <div class="form-floating input-group">
+                <input class="form-control" id="search" name="search" />
+                <label for="search">Tytuł</label>
+                <input id="search-btn" class="btn btn-primary input-group-append" type="submit" asp-page-handler="Search" value="Szukaj">
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 offset-4">
         <form method="post" id="create-form">
             Utwórz nowy element:<br/>
             <div class="form-floating input-group">
@@ -21,6 +31,7 @@
         </form>
     </div>
 </div>
+<br/><br/>
 <table class="table table-bordered table-responsive table-hover">
     <tr>
         <th>Tytuł</th>
