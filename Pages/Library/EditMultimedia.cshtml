@@ -1,0 +1,73 @@
+﻿@page
+@model EditMultimediaModel
+
+@{
+    ViewData["Title"] = "Edycja multimediów";
+}
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row align-middle align-content-center justify-content-center align-items-center">
+    <div class="col-md-5">
+         <form method="post" id="item-form" enctype="multipart/form-data">
+            <input type="hidden" value="@Model.Item.Id" name="id"/>
+            <input type="hidden" value="@Model.Item.ItemType" asp-for="Item.ItemType"/>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Item.Title" minlength="3" maxlength="200"  class="form-control" required/>
+                <label asp-for="Item.Title"></label>
+                <span asp-validation-for="Item.Title" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <select disabled asp-for="Item.ItemType" class="form-control">
+                    <option value="@LibraryItem.Type.BOOK">Książka</option>
+                    <option value="@LibraryItem.Type.MAGAZINE">Czasopismo</option>
+                    <option value="@LibraryItem.Type.MULTIMEDIA">Multimedia</option>
+                    <option value="@LibraryItem.Type.GENERAL">Inne</option>
+                </select>
+                <label asp-for="Item.ItemType"></label>
+                <span asp-validation-for="Item.ItemType" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Item.Author" minlength="3" maxlength="200"  class="form-control" required/>
+                <label asp-for="Item.Author"></label>
+                <span asp-validation-for="Item.Author" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Item.Publisher" minlength="3" maxlength="200"  class="form-control" required/>
+                <label asp-for="Item.Publisher"></label>
+                <span asp-validation-for="Item.Publisher" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Item.Photo"></label>
+                <input type="file" id="file" name="file" class="form-control"/>
+                @if (Model.Item?.Photo != null)
+                {
+                    <img style="width: 100%; margin-bottom: 10px;" src="data:image/png;base64,@Model.GetPhotoBase64()" alt="Grafika zasobu"/>
+                }
+            </div>
+            <div >
+                <label asp-for="Item.Description"></label>
+                <textarea asp-for="Item.Description" maxlength="1500"  class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Item.Description" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Item.Tags" class="form-control"/>
+                <label asp-for="Item.Tags"></label>
+                <span asp-validation-for="Item.Tags" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Item.Duration" class="form-control"/>
+                <label asp-for="Item.Duration"></label>
+                <span asp-validation-for="Item.Duration" class="text-danger"></span>
+            </div>
+            <div >
+                <label asp-for="Item.Contents"></label>
+                <textarea asp-for="Item.Contents" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Item.Contents" class="text-danger"></span>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Zapisz</button>
+        </form>
+    </div>
+</div>

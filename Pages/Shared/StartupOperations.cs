@@ -92,27 +92,28 @@ public class StartupOperations
         if (!await _lib.GetAll().AnyAsync())
         {
             _logger.LogInformation("Generating new example data");
+            var defaultTags = new[] { "tag1", "tag2" };
             var items = new LibraryItem?[]
             {
-                new()
+                new LibraryItem.Book()
                 {
                     Id = new Guid(), Author = "Test Author 1", Title = "Test item", Publisher = "Test Publisher",
-                    Tags = new[] { "tag1", "tag2" }
+                    Tags = string.Join(",", defaultTags)
                 },
                 new LibraryItem.Book
                 {
                     Id = new Guid(), Author = "Test Author 2", Title = "Test book", Publisher = "Test Publisher",
-                    Tags = new[] { "tag1", "tag2" }
+                    Tags = string.Join(",", defaultTags)
                 },
                 new LibraryItem.Magazine
                 {
                     Id = new Guid(), Author = "Test Author 3", Title = "Test magazine", Publisher = "Test Publisher",
-                    Tags = new[] { "tag1", "tag2" }
+                    Tags = string.Join(",", defaultTags)
                 },
                 new LibraryItem.Multimedia
                 {
                     Id = new Guid(), Author = "Test Author 4", Title = "Test multimedia", Publisher = "Test Publisher",
-                    Tags = new[] { "tag1", "tag2" }
+                    Tags = string.Join(",", defaultTags)
                 }
             };
 

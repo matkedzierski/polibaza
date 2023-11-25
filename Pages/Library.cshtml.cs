@@ -1,26 +1,66 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PoliBaza.Data;
 using PoliBaza.Pages.Shared;
 
-namespace PoliBaza.Pages
+namespace PoliBaza.Pages;
+
+[Authorize]
+public class LibraryModel : PageModel
 {
-	[Authorize]
-	public class LibraryModel : PageModel
+	private readonly ILogger<LibraryModel> _logger;
+	private readonly LibraryService _lib;
+	public IEnumerable<LibraryItem?> Items { get; set; }
+
+	public LibraryModel(ILogger<LibraryModel> logger, LibraryService lib)
 	{
-		private readonly ILogger<LibraryModel> _logger;
-		private readonly LibraryService _lib;
-		public IEnumerable<LibraryItem?> Items { get; set; }
+		_logger = logger;
+		_lib = lib;
+	}
 
-		public LibraryModel(ILogger<LibraryModel> logger, LibraryService lib)
+	public async Task<IActionResult> OnPostEdit(string id)
+	{
+		var item = await _lib.Get(Guid.Parse(id));
+		return item?.ItemType switch
 		{
-			_logger = logger;
-			_lib = lib;
+			LibraryItem.Type.BOOK => RedirectToPage("/Library/EditBook", new { id }),
+			LibraryItem.Type.MAGAZINE => RedirectToPage("/Library/EditMagazine", new { id }),
+			LibraryItem.Type.MULTIMEDIA => RedirectToPage("/Library/EditMultimedia", new { id }),
+			_ => OnGet()
+		};
+	}
+	public  IActionResult OnPostCreate(LibraryItem.Type type)
+	{
+		return type switch
+		{
+			LibraryItem.Type.BOOK => RedirectToPage("/Library/EditBook"),
+			LibraryItem.Type.MAGAZINE => RedirectToPage("/Library/EditMagazine"),
+			LibraryItem.Type.MULTIMEDIA => RedirectToPage("/Library/EditMultimedia"),
+			_ => OnGet()
+		};
+	}
+
+	public IActionResult OnPostView(string? id)
+	{
+		return RedirectToPage("/Library/ViewItem", new { id });
+	}
+	public async Task<IActionResult> OnPostDelete(string? id)
+	{
+		if (!string.IsNullOrEmpty(id))
+		{
+			await _lib.Delete(id);
 		}
 
-		public void OnGet()
-		{
-			Items = _lib.GetAll();
-		}
+		return OnGet();
+	}
+	public IActionResult OnPost()
+	{
+		return OnGet();
+	}
+	public IActionResult OnGet()
+	{
+		Items = _lib.GetAll();
+		return Page();
 	}
 }

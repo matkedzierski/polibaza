@@ -1,8 +1,96 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Razor.Language
 @model ViewItemModel
+
 @{
     ViewData["Title"] = Model.Item.Title;
 }
-<h1>@ViewData["Title"]</h1>
+<h1>Szczegóły zasobu</h1>
 
-@Model.Item.Title
+
+<table class="table table-bordered table-responsive table-hover" id="view-table">
+    <tr>
+        <th>
+            <label asp-for="Item.Title"></label>
+        </th>
+        <td style="width: 80%;">@Model.Item.Title</td>
+    </tr>
+    <tr>
+        <th>
+            <label asp-for="Item.Author"></label>
+        </th>
+        <td>@Model.Item.Author</td>
+    </tr>
+    <tr>
+        <th>
+            <label asp-for="Item.Publisher"></label>
+        </th>
+        <td>@Model.Item.Publisher</td>
+    </tr>
+    @if (Model.IsBook())
+    {
+        <tr>
+            <th>
+                <label asp-for="@((Model.Item as LibraryItem.Book)!.PageCount)"></label>
+            </th>
+            <td>@((Model.Item as LibraryItem.Book)!.PageCount)</td>
+        </tr>
+        <tr>
+            <th>
+                <label asp-for="@((Model.Item as LibraryItem.Book)!.IsbnNumber)"></label>
+            </th>
+            <td>@((Model.Item as LibraryItem.Book)!.IsbnNumber)</td>
+        </tr>
+    }
+    @if (Model.IsMagazine())
+    {
+        <tr>
+            <th>
+                <label asp-for="@((Model.Item as LibraryItem.Magazine)!.PageCount)"></label>
+            </th>
+            <td>@((Model.Item as LibraryItem.Magazine)!.PageCount)</td>
+        </tr>
+        <tr>
+            <th>
+                <label asp-for="@((Model.Item as LibraryItem.Magazine)!.IsbnNumber)"></label>
+            </th>
+            <td>@((Model.Item as LibraryItem.Magazine)!.IsbnNumber)</td>
+        </tr>
+    }
+    <tr>
+        <th>
+            <label asp-for="@Model.Item.Description"></label>
+        </th>
+        <td>@Model.Item.Description</td>
+    </tr>
+    <tr>
+        <th>
+            <label asp-for="@Model.Item.Photo"></label>
+        </th>
+        <td>
+            @if (Model.Item.Photo != null)
+            {
+                <img style="max-width: 100%; max-height: 400px; margin-bottom: 10px;" src="data:image/png;base64,@Model.GetPhoto()" alt="Grafika zasobu"/>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label asp-for="@Model.Item.Tags"></label>
+        </th>
+        <td>
+            @foreach (var tag in Model.Item.Tags?.Split(',') ?? Array.Empty<string>())
+            {
+                <button type="button" class="btn btn-outline-primary">@tag</button>
+            }
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label asp-for="@Model.Item.Contents"></label>
+        </th>
+        <td>@Model.Item.Contents</td>
+    </tr>
+
+</table>

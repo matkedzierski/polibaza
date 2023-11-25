@@ -1,11 +1,11 @@
 ﻿@model LibraryItem
 <form method="post" id="form-@Model.Id">
-    <input type="hidden" value="@Model.Id" name="userId"/>
-    <a class="btn btn-success" type="button" href="/Library/ViewItem?id=@Model.Id">Pokaż</a>
+    <input type="hidden" value="@Model.Id" name="id"/>
+    <input class="btn btn-success" type="submit" asp-page-handler="View" value="Pokaż">
     @if (User.IsInRole(RoleNames.ADMIN))
     {
-        <a class="btn btn-warning" type="button" href="/Library/EditItem?id=@Model.Id">Edytuj</a>
-        <input class="btn btn-danger" type="submit" value="Usuń" asp-page-handler="Delete"/>
+        <input class="btn btn-warning" type="submit" asp-page-handler="Edit" value="Edytuj">
+        <input class="btn btn-danger" type="submit" asp-page-handler="Delete" value="Usuń"/>
     }
     
 </form>   
